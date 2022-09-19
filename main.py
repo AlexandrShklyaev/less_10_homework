@@ -14,7 +14,6 @@ class Question:
         self.total: int = int(self.difficult) * 10  # в задании просили вычислить здесь
 
     def append_answer(self, answer: str) -> None:
-        """"""
         self.user_answer = answer
 
     def get_points(self) -> int:
