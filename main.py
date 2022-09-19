@@ -23,6 +23,7 @@ class Question:
         return self.answer == self.user_answer
 
     def build_question(self, ind: int) -> str:  # дополнитель передаю ind - номер вопроса
+        self.is_getting = True  # отметим, что взяли вопрос
         return f"Вопрос #{ind}: {self.text}\n Сложность: {self.difficult}/5"
 
     def build_feedback(self) -> str:  # объединил методы фидбека в один
@@ -50,14 +51,17 @@ def get_questions() -> list:
 def get_total(questions: list) -> None:
     """ Подсчёт и вывод статистики """
     total = 0
-    count = 0
+    count_a = 0
+    count_q = 0  # добавил только из-за is_getting
     for question in questions:
-        if question.is_correct():
-            total += question.get_points()
-            count += 1
+        if question.is_getting:
+            if question.is_correct():
+                total += question.get_points()
+                count_a += 1
+            count_q += 1
     print("-" * 20)
     print("Вот и все!")
-    print(f"Отвечено {count} вопроса из {len(questions)}")
+    print(f"Правильных ответов: {count_a} из {count_q}")
     print(f"Набранно {total} баллов")
 
 
